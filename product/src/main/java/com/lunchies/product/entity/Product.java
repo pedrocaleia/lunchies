@@ -32,6 +32,16 @@ public final class Product {
 	
 	@Column(name = "caloriecount")
 	private int calorieCount;
+	
+	public Product() {
+	}
+	
+	public Product(String name, String description, ProductType type, int calorieCount) {
+		this.name = name;
+		this.description = description;
+		this.type = type;
+		this.calorieCount = calorieCount;
+	}
 
 	public int getId() {
 		return id;
