@@ -10,7 +10,7 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "test_actions" ]
   pull_request:
     branches: [ "main" ]
 
@@ -27,4 +27,4 @@ jobs:
         cache: maven
     - name: Build User Service
       working-directory: ./user
-      run: ./mvnw -B package
+      run: mvn -B package --file pom.xml
