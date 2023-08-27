@@ -1,0 +1,17 @@
+server:
+  port: 9091
+spring:
+  datasource:
+    driverClassName: org.sqlite.JDBC
+    url: jdbc:sqlite:memory:lunchies?cache=shared
+    username: lunchies
+    password: 123456
+  jpa:
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    hibernate:
+      ddl-auto: create-drop
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://lunchies-auth-server:9000
