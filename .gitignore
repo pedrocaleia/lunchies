@@ -6,6 +6,11 @@ product/target
 product/.classpath
 product/.project
 
+order/.settings
+order/target
+order/.classpath
+order/.project
+
 gui/.settings
 gui/target
 gui/frontend
