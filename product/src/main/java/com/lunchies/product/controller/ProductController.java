@@ -56,10 +56,12 @@ public final class ProductController {
 	}
 	
 	@GetMapping("/product")
-	private ResponseEntity<List<Product>> getProduct() {
+	private ResponseEntity<List<ProductResponse>> getProduct() {
 		List<Product> products = this.productService.listProducts();
 		
-		return ResponseEntity.status(HttpStatus.OK).body(products);
+		List<ProductResponse> productResponses = products.stream().map(ProductResponse::new).toList();
+		
+		return ResponseEntity.status(HttpStatus.OK).body(productResponses);
 	}
 	
 	@DeleteMapping("/product/{id}")
