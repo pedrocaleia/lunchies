@@ -1,5 +1,6 @@
 package com.lunchies.product.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -75,6 +76,47 @@ public class ProductControllerTest {
 		String expectedResponse = "{\"name\": \"Bread\",\"description\": \"Some bread\",\"type\": \"ENTRY\",\"calorieCount\": 150}";
 		Assertions.assertEquals(HttpStatus.OK.value(), response.getStatus());
 		JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
+	}
+	
+	@Test
+	public void listProducts() throws Exception  {
+		Product bread = new Product("Bread", "Some bread", ProductType.ENTRY, 150);
+		bread.setId(1);
+		Product salad = new Product("Salad", "Some salad", ProductType.MAIN_COURSE, 250);
+		salad.setId(2);
+		
+		Mockito.when(this.productService.listProducts()).thenReturn(List.of(bread, salad));
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get("/product")
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		MockHttpServletResponse response = result.getResponse();
+		
+		String expectedResponse = "[{\"name\": \"Bread\",\"description\": \"Some bread\",\"type\": \"ENTRY\",\"calorieCount\": 150},"
+				+ "{\"name\": \"Salad\",\"description\": \"Some salad\",\"type\": \"MAIN_COURSE\",\"calorieCount\": 250}]";
+		Assertions.assertEquals(HttpStatus.OK.value(), response.getStatus());
+		JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
+	}
+	
+	@Test
+	public void deleteProduct() throws Exception  {
+		Product bread = new Product("Bread", "Some bread", ProductType.ENTRY, 150);
+		bread.setId(1);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.delete("/product/1")
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		MockHttpServletResponse response = result.getResponse();
+		
+		String expectedResponse = "";
+		Assertions.assertEquals(HttpStatus.OK.value(), response.getStatus());
+		Assertions.assertEquals(expectedResponse, result.getResponse().getContentAsString());
 	}
 
 }

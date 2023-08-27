@@ -1,5 +1,6 @@
 package com.lunchies.product.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,14 @@ public class ProductService {
 	public Optional<Product> getProductById(int id) {
 		Optional<Product> product = this.productRepository.findById(id);
 		return product;
+	}
+	
+	public List<Product> listProducts() {
+		return this.productRepository.findAll();
+	}
+	
+	public void deleteProduct(int id) {
+		this.productRepository.deleteById(id);
 	}
 
 }

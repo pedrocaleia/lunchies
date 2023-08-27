@@ -1,10 +1,12 @@
 package com.lunchies.product.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,6 +53,20 @@ public final class ProductController {
 			ProductResponse productResponse = new ProductResponse(product.get());
 			return ResponseEntity.status(HttpStatus.OK).body(productResponse);
 		}
+	}
+	
+	@GetMapping("/product")
+	private ResponseEntity<List<Product>> getProduct() {
+		List<Product> products = this.productService.listProducts();
+		
+		return ResponseEntity.status(HttpStatus.OK).body(products);
+	}
+	
+	@DeleteMapping("/product/{id}")
+	private ResponseEntity<Void> deleteProduct(@PathVariable("id") int id) {
+		this.productService.deleteProduct(id);
+		
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
 }
