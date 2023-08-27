@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lunchies.product.controller.requests.NewProduct;
 import com.lunchies.product.controller.responses.NewProductResponse;
 import com.lunchies.product.controller.responses.ProductResponse;
 import com.lunchies.product.entity.Product;
+import com.lunchies.product.entity.enums.ProductType;
 import com.lunchies.product.service.ProductService;
 
 /**
@@ -56,8 +58,15 @@ public final class ProductController {
 	}
 	
 	@GetMapping("/product")
-	private ResponseEntity<List<ProductResponse>> getProducts() {
-		List<Product> products = this.productService.listProducts();
+	private ResponseEntity<List<ProductResponse>> getProducts(@RequestParam(required = false) String type) {
+		List<Product> products;
+		if(type != null) {
+			ProductType productType = ProductType.valueOf(type);
+			products = this.productService.listProducts(productType);
+		}
+		else {
+			products = this.productService.listProducts();
+		}
 		
 		List<ProductResponse> productResponses = products.stream().map(ProductResponse::new).toList();
 		

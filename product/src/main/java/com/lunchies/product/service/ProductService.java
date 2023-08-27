@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lunchies.product.entity.Product;
+import com.lunchies.product.entity.enums.ProductType;
 import com.lunchies.product.repository.ProductRepository;
 
 /**
@@ -29,6 +30,10 @@ public class ProductService {
 	
 	public List<Product> listProducts() {
 		return this.productRepository.findAll();
+	}
+	
+	public List<Product> listProducts(ProductType type) {
+		return this.productRepository.findByType(type);
 	}
 	
 	public void deleteProduct(int id) {

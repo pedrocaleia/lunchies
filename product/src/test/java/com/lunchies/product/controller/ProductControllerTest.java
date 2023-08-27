@@ -102,6 +102,29 @@ public class ProductControllerTest {
 	}
 	
 	@Test
+	public void listProductsByType() throws Exception  {
+		Product bread = new Product("Bread", "Some bread", ProductType.ENTRY, 150);
+		bread.setId(1);
+		Product soap = new Product("Soap", "Some soap", ProductType.ENTRY, 225);
+		soap.setId(2);
+		
+		Mockito.when(this.productService.listProducts(ProductType.ENTRY)).thenReturn(List.of(bread, soap));
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get("/product?type=ENTRY")
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		MockHttpServletResponse response = result.getResponse();
+		
+		String expectedResponse = "[{\"name\": \"Bread\",\"description\": \"Some bread\",\"type\": \"ENTRY\",\"calorieCount\": 150},"
+				+ "{\"name\": \"Soap\",\"description\": \"Some soap\",\"type\": \"ENTRY\",\"calorieCount\": 225}]";
+		Assertions.assertEquals(HttpStatus.OK.value(), response.getStatus());
+		JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
+	}
+	
+	@Test
 	public void deleteProduct() throws Exception  {
 		Product bread = new Product("Bread", "Some bread", ProductType.ENTRY, 150);
 		bread.setId(1);
