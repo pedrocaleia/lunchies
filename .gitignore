@@ -5,3 +5,9 @@ product/.settings
 product/target
 product/.classpath
 product/.project
+
+gui/.settings
+gui/target
+gui/frontend
+gui/.classpath
+gui/.project
