@@ -11,3 +11,8 @@ gui/target
 gui/frontend
 gui/.classpath
 gui/.project
+
+user/.settings
+user/target
+user/.classpath
+user/.project
