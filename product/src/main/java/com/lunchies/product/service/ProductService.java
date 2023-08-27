@@ -12,18 +12,18 @@ import com.lunchies.product.repository.ProductRepository;
  * @author Pedro Caleia
  */
 @Service
-public final class ProductService {
+public class ProductService {
 	
 	@Autowired
 	private ProductRepository productRepository;
-  
-    public Optional<Product> getProductById(int id) {
+
+	public Product saveProduct(Product product) {
+		return this.productRepository.save(product);
+	}
+	    
+	public Optional<Product> getProductById(int id) {
 		Optional<Product> product = this.productRepository.findById(id);
 		return product;
 	}
-    
-    public Product saveProduct(Product product) {
-    	return this.productRepository.save(product);
-    }
 
 }
