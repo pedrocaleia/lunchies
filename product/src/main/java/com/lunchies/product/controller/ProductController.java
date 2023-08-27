@@ -56,7 +56,7 @@ public final class ProductController {
 	}
 	
 	@GetMapping("/product")
-	private ResponseEntity<List<ProductResponse>> getProduct() {
+	private ResponseEntity<List<ProductResponse>> getProducts() {
 		List<Product> products = this.productService.listProducts();
 		
 		List<ProductResponse> productResponses = products.stream().map(ProductResponse::new).toList();
