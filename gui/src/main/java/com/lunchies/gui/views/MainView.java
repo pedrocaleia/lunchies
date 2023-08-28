@@ -20,9 +20,11 @@ public class MainView extends VerticalLayout {
 		Div menu = new Div();
 	    menu.add(new RouterLink("New Product", NewProductView.class));
 	    menu.add(new Paragraph());
-	    menu.add(new RouterLink("List Product", ListProductView.class));
+	    menu.add(new RouterLink("List Products", ListProductView.class));
 	    menu.add(new Paragraph());
 	    menu.add(new RouterLink("New Order", NewOrderView.class));
+	    menu.add(new Paragraph());
+	    menu.add(new RouterLink("List Orders", ListOrderView.class));
 	    
 	    add(menu);
 	}
