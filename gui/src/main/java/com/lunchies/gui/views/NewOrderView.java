@@ -5,8 +5,8 @@ import java.util.Optional;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.lunchies.gui.clients.OrderClient;
 import com.lunchies.gui.rtos.NewOrderRto;
-import com.lunchies.gui.rtos.NewOrderRtoResponse;
 import com.lunchies.gui.rtos.ProductRto;
 import com.vaadin.flow.component.AbstractField.ComponentValueChangeEvent;
 import com.vaadin.flow.component.UI;
@@ -32,7 +32,7 @@ import jakarta.annotation.security.PermitAll;
 @PermitAll
 public class NewOrderView extends VerticalLayout {
 	
-	public NewOrderView(WebClient webClient, AuthenticationContext authContext) {
+	public NewOrderView(OrderClient orderClient, WebClient webClient, AuthenticationContext authContext) {
 		Optional<DefaultOidcUser> userDetails = authContext.getAuthenticatedUser(DefaultOidcUser.class);
 		
 		TextField employee = new TextField("Employee");
@@ -91,18 +91,12 @@ public class NewOrderView extends VerticalLayout {
 		
 		submitButton.addClickListener(event -> {
             try {
-            	NewOrderRto newOrder = new NewOrderRto(employee.getValue(), entrySelect.getValue().getId(), mainCourseSelect.getValue().getId(), beverageSelect.getValue().getId());
+            	NewOrderRto newOrder = new NewOrderRto(employee.getValue(), entrySelect.getValue().getId(), entrySelect.getValue().getCalorieCount(), mainCourseSelect.getValue().getId(), 
+            			mainCourseSelect.getValue().getCalorieCount(), beverageSelect.getValue().getId(), beverageSelect.getValue().getCalorieCount());
+
+            	int newOrderId = orderClient.saveNewOrder(newOrder);
             	
-            	NewOrderRtoResponse response = webClient
-            			.post()
-            			.uri("http://127.0.0.1:9092/order")
-            			//.attributes(oauth2AuthorizedClient(authorizedClient))
-            			.bodyValue(newOrder)
-            			.retrieve()
-            			.bodyToMono(NewOrderRtoResponse.class)
-            			.block();
-            	
-            	Notification notification = Notification.show("Order saved with id '" + response.getId() + "'");
+            	Notification notification = Notification.show("Order saved with id '" + newOrderId + "'");
     	        notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
     	        
     	        UI.getCurrent().navigate(MainView.class);
