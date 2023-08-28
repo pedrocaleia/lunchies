@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 
 import com.lunchies.gui.clients.OrderClient;
+import com.lunchies.gui.clients.ProductClient;
 import com.lunchies.gui.rtos.OrderRto;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -25,15 +26,15 @@ import jakarta.annotation.security.PermitAll;
 @PermitAll
 public class ListOrderView extends VerticalLayout {
 	
-	public ListOrderView(AuthenticationContext authContext, OrderClient orderClient) {
+	public ListOrderView(AuthenticationContext authContext, OrderClient orderClient, ProductClient productClient) {
 		Optional<DefaultOidcUser> userDetails = authContext.getAuthenticatedUser(DefaultOidcUser.class);
 		
 		List<OrderRto> orders = orderClient.getOrdersForEmployee(userDetails.get().getName());
 		
 		Grid<OrderRto> grid = new Grid<>();
-		grid.addColumn(OrderRto::getEntry);
-		grid.addColumn(OrderRto::getMainCourse);
-		grid.addColumn(OrderRto::getBeverage);
+		grid.addColumn(order -> productClient.getProduct(order.getEntry()).getName());
+		grid.addColumn(order -> productClient.getProduct(order.getMainCourse()).getName());
+		grid.addColumn(order -> productClient.getProduct(order.getBeverage()).getName());
 		grid.addColumn(OrderRto::getCalories);
 		grid.setItems(orders);
 		
