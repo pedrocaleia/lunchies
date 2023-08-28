@@ -45,8 +45,8 @@ public class AuthorizationServerConfiguration {
 				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
 				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
 				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-				.redirectUri("http://127.0.0.1:9090/login/oauth2/code/lunchies-client-oidc")
-				.redirectUri("http://127.0.0.1:9090/authorized")
+				.redirectUri("https://127.0.0.1:9090/login/oauth2/code/lunchies-client-oidc")
+				.redirectUri("https://127.0.0.1:9090/authorized")
 				.scope(OidcScopes.OPENID)
 				.scope("lunchies.user")
 				.build();

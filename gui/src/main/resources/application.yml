@@ -1,5 +1,11 @@
 server:
   port: 9090
+  ssl:
+    key-store: classpath:lunchies.pfx
+    key-store-password: 123456
+    key-store-type: pkcs12
+    key-alias: lunchies
+    key-password: 123456
 
 spring:
   security:
@@ -11,7 +17,7 @@ spring:
             client-id: lunchies-client
             client-secret: secret
             authorization-grant-type: authorization_code
-            redirect-uri: "http://127.0.0.1:9090/login/oauth2/code/{registrationId}"
+            redirect-uri: "https://127.0.0.1:9090/login/oauth2/code/{registrationId}"
             scope: openid
             client-name: lunchies-client-oidc
           lunchies-client-authorization:
@@ -19,7 +25,7 @@ spring:
             client-id: lunchies-client
             client-secret: secret
             authorization-grant-type: authorization_code
-            redirect-uri: "http://127.0.0.1:9090/login/oauth2/code/{registrationId}"
+            redirect-uri: "https://127.0.0.1:9090/login/oauth2/code/{registrationId}"
             scope: lunchies.user
             client-name: lunchies-client-authorization
         provider:
