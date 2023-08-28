@@ -31,6 +31,10 @@ public class OrderService {
 		return this.orderRepository.findAll();
 	}
 	
+	public List<Order> listOrders(String employee) {
+		return this.orderRepository.findByEmployee(employee);
+	}
+	
 	public void deleteOrder(int id) {
 		this.orderRepository.deleteById(id);
 	}

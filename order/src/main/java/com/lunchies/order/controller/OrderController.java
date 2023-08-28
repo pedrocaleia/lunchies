@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lunchies.order.controller.requests.NewOrder;
@@ -56,8 +57,14 @@ public final class OrderController {
 	}
 	
 	@GetMapping("/order")
-	private ResponseEntity<List<OrderResponse>> getOrders() {
-		List<Order> orders = this.orderService.listOrders();
+	private ResponseEntity<List<OrderResponse>> getOrders(@RequestParam(required = false) String employee) {
+		List<Order> orders;
+		if(employee != null) {
+			orders = this.orderService.listOrders(employee);
+		}
+		else {
+			orders = this.orderService.listOrders();
+		}
 		
 		List<OrderResponse> orderResponses = orders.stream().map(OrderResponse::new).toList();
 		
