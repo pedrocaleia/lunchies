@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
  * @author Pedro Caleia
  */
 @Entity
-@Table(name = "order")
+@Table(name = "lunchorder")
 public final class Order {
 	
 	@Id
