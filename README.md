@@ -15,3 +15,7 @@ The GUI service provides a simple user interface using Vaadin.
 The services can be booted up using the Maven Wrapper provided. It can be accomplished by executing `mvnw spring-boot:run` inside each service folder.
 
 The User service relies on a DNS name in order to function, given that when it is run locally if it used the localhost it would interfere with the cookies. The DNS name in use is `lunchies-auth-server`.
+
+GitHub actions have been set to compile and test the services. No deployment has been configured.
+
+When all service are up the application can be reached at: [localhost:9090](http://localhost:9090)
