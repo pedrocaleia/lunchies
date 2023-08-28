@@ -79,11 +79,13 @@ public class OrderControllerTest {
 	}
 	
 	@Test
-	public void listProducts() throws Exception  {
+	public void listOrders() throws Exception  {
 		Order order1 = new Order("pedrocaleia", 1, 2, 3);
 		order1.setId(1);
+		order1.setCalories(300);
 		Order order2 = new Order("pedrocaleia", 4, 5, 6);
 		order2.setId(2);
+		order2.setCalories(450);
 		
 		Mockito.when(this.orderService.listOrders()).thenReturn(List.of(order1, order2));
 		
@@ -95,14 +97,14 @@ public class OrderControllerTest {
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 		MockHttpServletResponse response = result.getResponse();
 		
-		String expectedResponse = "[{\"employee\": \"pedrocaleia\",\"entry\": 1,\"mainCourse\": 2,\"beverage\": 3},"
-				+ "{\"employee\": \"pedrocaleia\",\"entry\": 4,\"mainCourse\": 5,\"beverage\": 6}]";
+		String expectedResponse = "[{\"employee\": \"pedrocaleia\",\"entry\": 1,\"mainCourse\": 2,\"beverage\": 3, \"calories\": 300},"
+				+ "{\"employee\": \"pedrocaleia\",\"entry\": 4,\"mainCourse\": 5,\"beverage\": 6, \"calories\": 450}]";
 		Assertions.assertEquals(HttpStatus.OK.value(), response.getStatus());
 		JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
 	}
 	
 	@Test
-	public void deleteProduct() throws Exception  {
+	public void deleteOrder() throws Exception  {
 		Order order = new Order("pedrocaleia", 1, 2, 3);
 		order.setId(1);
 		

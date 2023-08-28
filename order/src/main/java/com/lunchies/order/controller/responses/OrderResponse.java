@@ -12,6 +12,7 @@ public final class OrderResponse {
 	private final int entry;
 	private final int mainCourse;
 	private final int beverage;
+	private final int calories;
 	
 	public OrderResponse(Order order) {
 		this.id = order.getId();
@@ -19,6 +20,7 @@ public final class OrderResponse {
 		this.entry = order.getEntry();
 		this.mainCourse = order.getMainCourse();
 		this.beverage = order.getBeverage();
+		this.calories = order.getCalories();
 	}
 
 	public int getId() {
@@ -39,6 +41,10 @@ public final class OrderResponse {
 
 	public int getBeverage() {
 		return this.beverage;
+	}
+
+	public int getCalories() {
+		return this.calories;
 	}
 	
 }
