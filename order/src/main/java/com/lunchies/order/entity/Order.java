@@ -31,6 +31,9 @@ public final class Order {
 	@Column(name = "beverage")
 	private int beverage;
 	
+	@Column(name = "calories")
+	private int calories;
+	
 	public Order() {
 	}
 
@@ -79,6 +82,14 @@ public final class Order {
 
 	public void setBeverage(int beverage) {
 		this.beverage = beverage;
+	}
+
+	public int getCalories() {
+		return this.calories;
+	}
+
+	public void setCalories(int calories) {
+		this.calories = calories;
 	}
 
 }

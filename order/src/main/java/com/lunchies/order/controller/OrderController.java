@@ -34,7 +34,7 @@ public final class OrderController {
 		Order order = new Order(newOrder.getEmployee(), newOrder.getEntry(), newOrder.getMainCourse(), newOrder.getBeverage());
 		
 		try {
-			order = this.orderService.saveOrder(order);
+			order = this.orderService.saveOrder(order, newOrder.getEntryCalorieCount(), newOrder.getMainCourseCalorieCount(), newOrder.getBeverageCalorieCount());
 			NewOrderResponse newOrderResponse = new NewOrderResponse(order.getId());
 			return ResponseEntity.status(HttpStatus.CREATED).body(newOrderResponse);
 		}

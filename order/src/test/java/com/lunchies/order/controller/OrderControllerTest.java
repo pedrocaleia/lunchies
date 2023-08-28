@@ -40,9 +40,10 @@ public class OrderControllerTest {
 	public void createNewOrder() throws Exception  {
 		Order order = new Order("pedrocaleia", 1, 2, 3);
 		order.setId(1);
-		String orderJson = "{\"employee\": \"pedrocaleia\",\"entry\": 1,\"mainCourse\": 2,\"beverage\": 3}";
+		String orderJson = "{\"employee\": \"pedrocaleia\",\"entry\": 1, \"entryCalorieCount\": 100, \"mainCourse\": 2, \"mainCourseCalorieCount\": 200, "
+				+ "\"beverage\": 3, \"beverageCalorieCount\": 300}";
 		
-		Mockito.when(this.orderService.saveOrder(Mockito.any(Order.class))).thenReturn(order);
+		Mockito.when(this.orderService.saveOrder(Mockito.any(Order.class), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(order);
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post("/order")

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lunchies.order.entity.Order;
+import com.lunchies.order.formulas.CaloriesCalculationFormula;
 import com.lunchies.order.repository.OrderRepository;
 
 /**
@@ -17,8 +18,12 @@ public class OrderService {
 	
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private CaloriesCalculationFormula formula;
 
-	public Order saveOrder(Order order) {
+	public Order saveOrder(Order order, int entryCalorieCount, int mainCourseCalorieCount, int beverageCalorieCount) {
+		order.setCalories(this.formula.calculate(entryCalorieCount, mainCourseCalorieCount, beverageCalorieCount));
 		return this.orderRepository.save(order);
 	}
 	    
